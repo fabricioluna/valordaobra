@@ -3,6 +3,7 @@ import { type ReactNode, Suspense } from "react";
 import { AppNav } from "@/components/layout/app-nav";
 import { AppShell } from "@/components/layout/app-shell";
 import { BillingBanner } from "@/features/billing/components/billing-banner";
+import { InstallReminder } from "@/features/install/components/install-reminder";
 import { getLaunchAccess } from "@/features/members/queries";
 import { requireOrg } from "@/features/organizations/queries";
 
@@ -42,6 +43,7 @@ async function OrgGate({
       <Suspense fallback={null}>
         <BillingBanner orgId={org.id} orgSlug={org.slug} />
       </Suspense>
+      <InstallReminder />
       {children}
     </>
   );

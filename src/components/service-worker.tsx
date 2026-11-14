@@ -2,9 +2,15 @@
 
 import { useEffect } from "react";
 
-/** Registra o service worker (tela de "sem conexão"). Só em produção. */
+import { startInstallCapture } from "@/features/install/browser";
+
+/**
+ * Registra o service worker (tela de "sem conexão"; só em produção) e começa
+ * a ouvir o convite de instalação do Chrome, em qualquer página.
+ */
 export function ServiceWorker() {
   useEffect(() => {
+    startInstallCapture();
     if (process.env.NODE_ENV !== "production") return;
     if (!("serviceWorker" in navigator)) return;
     navigator.serviceWorker

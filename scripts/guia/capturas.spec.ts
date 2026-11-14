@@ -107,6 +107,13 @@ test("capturas do guia", async ({ page, browser }) => {
     const projectUrl = page.url();
     const projectId = projectUrl.split("/").pop()!;
     const orgBase = projectUrl.replace(/\/obras\/.*$/, "");
+    // Primeira tela depois da obra criada: o lembrete de instalar aparece.
+    await expect(
+      page.getByRole("heading", { name: "Coloque o app na tela inicial" }),
+    ).toBeVisible();
+    await shot(page, "07b-lembrete-instalar", false);
+    // Daqui em diante, sem o lembrete nas fotos.
+    await page.getByRole("button", { name: "Não mostrar mais" }).click();
     await shot(page, "07-painel-vazio", false);
 
     // ── Dados de demonstração ───────────────────────────────────────────
@@ -549,6 +556,8 @@ test("capturas do guia", async ({ page, browser }) => {
     }
     await page.goto(`${orgBase}/configuracoes/meus-dados`);
     await shot(page, "30-meus-dados");
+    await page.goto("/instalar");
+    await shot(page, "31-instalar");
   } finally {
     await deleteE2EUsers(users);
   }

@@ -598,11 +598,19 @@ ${two(
 
 <h2><span class="n">18</span>Instalar no celular e dúvidas frequentes</h2>
 <h3>Instalar como app</h3>
-<p>O Valor da Obra funciona no navegador, mas fica melhor instalado na tela inicial, como um app:</p>
+<p>O Valor da Obra funciona no navegador, mas fica melhor instalado na tela inicial: abre num toque, em tela cheia, direto nas suas obras, sem passar pela loja de aplicativos.</p>
+${row(fig("07b-lembrete-instalar", "O lembrete, no alto da tela"), fig("31-instalar", "Mais › Instalar no celular"))}
 <ul>
-  <li><strong>Android (Chrome)</strong>: abra valordaobra.com.br, toque nos três pontinhos e em <strong>Instalar app</strong> (ou “Adicionar à tela inicial”).</li>
-  <li><strong>iPhone (Safari)</strong>: abra o site, toque em <strong>Compartilhar</strong> e em <strong>Adicionar à Tela de Início</strong>.</li>
+  <li><strong>O lembrete</strong>: no celular, enquanto o app não estiver instalado, aparece no alto das telas o quadro <em>Coloque o app na tela inicial</em>. <strong>Ver como fazer</strong> abre o passo a passo do seu celular; em alguns Android aparece <strong>Instalar agora</strong>, que instala direto.</li>
+  <li><strong>Agora não</strong>: o lembrete some e volta depois de alguns dias (3, depois 7, 14 e 30). <strong>Não mostrar mais</strong>: ele não aparece de novo naquele celular. Depois de instalar, ele também some.</li>
+  <li>O passo a passo fica sempre em <strong>Mais › Instalar no celular</strong> (ou em valordaobra.com.br/instalar).</li>
 </ul>
+<table>
+  <tr><th>Celular</th><th>Como</th></tr>
+  <tr><td>iPhone (Safari)</td><td>Botão <strong>Compartilhar</strong> (nos iPhones mais novos, dentro dos três pontinhos ao lado do endereço) › <strong>Adicionar à Tela de Início</strong> › <strong>Adicionar</strong>.</td></tr>
+  <tr><td>Android (Chrome)</td><td>Três pontinhos (⋮) › <strong>Instalar app</strong> ou <strong>Adicionar à tela inicial</strong> › <strong>Instalar</strong>.</td></tr>
+</table>
+${tip("Abriu o link dentro do WhatsApp ou do Instagram? Por ali não dá para instalar: toque nos três pontinhos, escolha “Abrir no navegador” e siga os passos.")}
 <h3>Dúvidas frequentes</h3>
 <p><strong>A inteligência artificial grava gastos sozinha?</strong><br>Não. Ela só lê a mensagem, a foto ou o áudio e propõe. O gasto só vale depois que você confirma.</p>
 <p><strong>Quem consegue ver os dados da minha obra?</strong><br>Só você e quem você convidou. As fotos dos comprovantes ficam guardadas de forma privada.</p>

@@ -4,6 +4,7 @@ import {
   Gauge,
   LogOut,
   MessageCircle,
+  Smartphone,
   Users,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { accountCopy } from "@/features/account/copy";
 import { signOut } from "@/features/auth/actions";
 import { billingCopy } from "@/features/billing/copy";
+import { INSTALL_PATH, installCopy } from "@/features/install/copy";
 import { authCopy } from "@/features/auth/copy";
 import { membersCopy } from "@/features/members/copy";
 import {
@@ -170,6 +172,28 @@ export default async function SettingsPage({
             </ul>
           </section>
         ) : null}
+
+        <section>
+          <h2 className="mb-3 text-lg heading">{copy.phone}</h2>
+          <Link href={INSTALL_PATH} className={rowClass}>
+            <Smartphone
+              className="size-6 shrink-0 text-muted-foreground"
+              aria-hidden
+            />
+            <span className="flex flex-1 flex-col">
+              <span className="font-semibold">
+                {installCopy.settingsRow.title}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {installCopy.settingsRow.description}
+              </span>
+            </span>
+            <ChevronRight
+              className="size-5 text-muted-foreground"
+              aria-hidden
+            />
+          </Link>
+        </section>
 
         <section>
           <h2 className="mb-3 text-lg heading">{copy.privacy}</h2>
