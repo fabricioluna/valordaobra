@@ -73,6 +73,8 @@ test("capturas do guia", async ({ page, browser }) => {
     });
     await visitor.goto("/entrar");
     await shot(visitor, "04-entrar", false);
+    await visitor.getByRole("button", { name: "Criar conta" }).click();
+    await shot(visitor, "04b-criar-conta", false);
     await visitorContext.close();
 
     // ── Cadastro e primeiro acesso ──────────────────────────────────────
@@ -91,12 +93,27 @@ test("capturas do guia", async ({ page, browser }) => {
     await page.getByLabel("Área construída (m²)").fill("120");
     const city = page.getByLabel("Cidade");
     if (await city.count()) await city.fill("Caruaru");
-    await shot(page, "06-nova-obra");
+    // Uma reforma não teria, por exemplo, fundação: mostra o desmarcar.
+    const fundacao = page.getByRole("checkbox", { name: "Fundação" });
+    if (await fundacao.count()) {
+      await fundacao.uncheck();
+      await shot(page, "06-nova-obra");
+      await fundacao.check();
+    } else {
+      await shot(page, "06-nova-obra");
+    }
     await page.getByRole("button", { name: "Criar obra" }).click();
     await expect(page).toHaveURL(/\/obras\/[0-9a-f-]{36}$/);
     const projectUrl = page.url();
     const projectId = projectUrl.split("/").pop()!;
     const orgBase = projectUrl.replace(/\/obras\/.*$/, "");
+    // Primeira tela depois da obra criada: o lembrete de instalar aparece.
+    await expect(
+      page.getByRole("heading", { name: "Coloque o app na tela inicial" }),
+    ).toBeVisible();
+    await shot(page, "07b-lembrete-instalar", false);
+    // Daqui em diante, sem o lembrete nas fotos.
+    await page.getByRole("button", { name: "Não mostrar mais" }).click();
     await shot(page, "07-painel-vazio", false);
 
     // ── Dados de demonstração ───────────────────────────────────────────
@@ -462,6 +479,11 @@ test("capturas do guia", async ({ page, browser }) => {
     const desc = page.getByLabel("Descrição");
     if (await desc.count()) await desc.first().fill("Diária do eletricista");
     await shot(page, "09-lancar-gasto", false);
+    const stageSelect = page.getByRole("combobox", { name: /^Etapa/ });
+    await stageSelect.selectOption("nova");
+    await page.getByLabel("Nome da nova etapa").fill("Muro");
+    await shot(page, "09b-nova-etapa", false);
+    await stageSelect.selectOption("");
     const more = page.getByText("Mais detalhes");
     if (await more.count()) {
       await more.first().click();
@@ -505,6 +527,19 @@ test("capturas do guia", async ({ page, browser }) => {
     await page.goto(`${orgBase}/obras`);
     await shot(page, "22-obras");
     await page.goto(`${orgBase}/configuracoes`);
+    await settle(page);
+    // O e-mail da conta de teste vira um e-mail com cara de gente.
+    await page.evaluate((email) => {
+      const walker = document.createTreeWalker(document.body, 4);
+      for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+        if (n.nodeValue?.includes(email)) {
+          n.nodeValue = n.nodeValue.replace(
+            email,
+            "maria.souza@exemplo.com.br",
+          );
+        }
+      }
+    }, maria.email);
     await shot(page, "23-configuracoes");
     await page.goto(`${orgBase}/configuracoes/equipe`);
     await shot(page, "24-equipe");
@@ -521,6 +556,8 @@ test("capturas do guia", async ({ page, browser }) => {
     }
     await page.goto(`${orgBase}/configuracoes/meus-dados`);
     await shot(page, "30-meus-dados");
+    await page.goto("/instalar");
+    await shot(page, "31-instalar");
   } finally {
     await deleteE2EUsers(users);
   }

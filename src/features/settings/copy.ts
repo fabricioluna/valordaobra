@@ -13,6 +13,7 @@ export const settingsCopy = {
       : `${people} pessoas com acesso.`,
   plan: "Plano",
   privacy: "Privacidade",
+  phone: "Celular",
   login: "Seu acesso",
   loggedInAs: "Você entrou como",
   loginHint:
