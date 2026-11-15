@@ -62,7 +62,7 @@ export const authCopy = {
   },
   errors: {
     invalidEmail: "Digite um e-mail válido, como voce@exemplo.com.",
-    invalidCode: "Digite o código de 6 dígitos que chegou no e-mail.",
+    invalidCode: "Digite os números do código que chegou no e-mail.",
     wrongCode:
       "Código errado ou vencido. Confira o e-mail ou peça um acesso novo.",
     rateLimited: "Muitos pedidos seguidos. Espere um minuto e tente de novo.",

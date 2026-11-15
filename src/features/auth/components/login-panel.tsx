@@ -22,6 +22,7 @@ import { authCopy, type UrlErrorCode, urlErrors } from "../copy";
 import { authErrorMessage } from "../errors";
 import {
   emailSchema,
+  extractOtp,
   otpSchema,
   passwordLoginSchema,
   resetPasswordSchema,
@@ -298,7 +299,7 @@ function SignUp({
   );
 }
 
-/** Código de 6 dígitos do cadastro (uma vez só); confirmado, já entra. */
+/** Código do cadastro (uma vez só); confirmado, já entra. */
 function ConfirmCode({
   email,
   next,
@@ -487,8 +488,17 @@ function CodeField({ label, invalid }: { label: string; invalid: boolean }) {
         name="token"
         inputMode="numeric"
         autoComplete="one-time-code"
-        pattern="[0-9 ]*"
-        maxLength={9}
+        // Colar o assunto do e-mail ou o número copiado do iPhone (que às
+        // vezes vem com espaços ou caracteres invisíveis) deixa só o código.
+        onPaste={(event) => {
+          const pasted = event.clipboardData.getData("text");
+          const code = extractOtp(pasted);
+          if (code && code !== pasted) {
+            event.preventDefault();
+            event.currentTarget.value = code;
+          }
+        }}
+        maxLength={64}
         required
         aria-invalid={invalid || undefined}
         className="h-14 text-center text-2xl font-bold tracking-[0.4em] tabular-nums"
