@@ -8,10 +8,20 @@ export const emailSchema = z
   .toLowerCase()
   .pipe(z.email({ error: authCopy.errors.invalidEmail }));
 
-/** Código do e-mail: só dígitos, aceitando espaços que a pessoa digitar. */
+/**
+ * O código dentro do que a pessoa digitou ou colou: "4613 6713", ou o
+ * assunto inteiro do e-mail ("Seu código de acesso: 46136713"). O Supabase
+ * manda de 6 a 8 dígitos, conforme o projeto.
+ */
+export function extractOtp(value: string): string {
+  const run = value.match(/(?<!\d)\d{6,8}(?!\d)/);
+  if (run) return run[0];
+  return value.replace(/\D+/g, "");
+}
+
 export const otpSchema = z
   .string()
-  .transform((value) => value.replace(/\s+/g, ""))
+  .transform(extractOtp)
   .pipe(z.string().regex(/^\d{6,8}$/, { error: authCopy.errors.invalidCode }));
 
 export const sendCodeSchema = z.object({

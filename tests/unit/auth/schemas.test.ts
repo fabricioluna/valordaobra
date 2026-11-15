@@ -29,6 +29,12 @@ describe("otpSchema", () => {
     ["123456", "123456"],
     ["123 456", "123456"],
     [" 12345678 ", "12345678"],
+    ["4613 6713", "46136713"],
+    // Assunto do e-mail colado inteiro.
+    ["Seu código de acesso: 46136713", "46136713"],
+    // Número copiado do iPhone com caracteres invisíveis no meio.
+    ["4613​6713", "46136713"],
+    ["+46136713", "46136713"],
   ])("aceita %j", (value, expected) => {
     expect(otpSchema.parse(value)).toBe(expected);
   });

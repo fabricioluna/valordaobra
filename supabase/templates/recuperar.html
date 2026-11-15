@@ -7,6 +7,24 @@
   <origem>/auth/confirm?next=/nova-senha: abre a sessão e leva à tela de
   escolher a senha nova.
 -->
+<meta
+  name="format-detection"
+  content="telephone=no, date=no, address=no, email=no"
+/>
+<meta name="x-apple-disable-message-reformatting" />
+<style>
+  /* iPhone: o código de 8 dígitos parece telefone e vira link de ligação. */
+  a[x-apple-data-detectors],
+  .codigo a {
+    color: inherit !important;
+    text-decoration: none !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    pointer-events: none !important;
+  }
+</style>
 <div
   style="
     font-family: Arial, Helvetica, sans-serif;
@@ -33,14 +51,21 @@
       Seu código para criar a senha:
     </p>
     <p
+      class="codigo"
       style="
-        margin: 0 0 24px;
+        margin: 0 0 8px;
         font-size: 36px;
         font-weight: bold;
         letter-spacing: 8px;
+        color: #132a42;
+        -webkit-user-select: all;
+        user-select: all;
       "
     >
       {{ .Token }}
+    </p>
+    <p style="margin: 0 0 24px; font-size: 14px; color: #4e5d72">
+      Para copiar, toque e segure o código.
     </p>
     <p style="margin: 0 0 16px; font-size: 16px">
       Digite o código no app junto com a senha nova, ou toque no botão:
